@@ -1,0 +1,24 @@
+# NewsPulse — 多源新闻实时流处理与智能舆情分析平台
+# 需要 Python >= 3.11（用 uv venv --python 3.11 创建环境）
+
+# ── 消息队列 ──
+kafka-python>=2.0.2          # Kafka producer/consumer 客户端
+
+# ── 采集 ──
+feedparser>=6.0.11           # RSS/Atom 解析
+requests>=2.31.0             # HTTP 抓取
+beautifulsoup4>=4.12.0       # HTML 剥离子
+
+# ── 流处理 / 批处理 ──
+pyspark>=3.5.0               # Spark Structured Streaming + Spark SQL
+
+# ── AI 智能应用 ──
+openai>=1.54.0,<3            # OpenAI 兼容客户端（DeepSeek 等）
+
+# ── 可视化 ──
+streamlit>=1.32.0
+plotly>=5.20.0               # 看板图表
+
+# ── 配置 ──
+pyyaml>=6.0
+python-dotenv>=1.0.0

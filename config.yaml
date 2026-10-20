@@ -1,0 +1,53 @@
+# NewsPulse 配置
+
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topic: "news.raw"
+  partitions: 3                # 作业要求：设置合适的分区数
+
+spark:
+  app_name: "NewsPulse"
+  driver_memory: "2g"          # 15.7G 机器的安全值
+  shuffle_partitions: 4        # 默认 200，小数据纯浪费
+  checkpoint_dir: "data/checkpoints"
+  trigger_interval: "5 seconds"
+
+storage:
+  lake_dir: "data/lake"        # Parquet 数据湖
+  sqlite_path: "news_pulse.db" # 聚合结果
+
+ai:
+  provider: "deepseek"
+  base_url: "https://api.deepseek.com"
+  model: "deepseek-chat"
+  api_key_env: "DEEPSEEK_API_KEY"
+  batch_size: 5                # 单次请求带几条
+  max_retries: 3
+  cache_dir: "data/cache"      # 作业要求：避免重复请求
+
+sources:
+  # RSS 采集配置（并发参数 + 源列表统一放在 rss 下）
+  rss:
+    workers: 4                 # 同时抓几个源
+    per_host: 2                # 同站最多几路
+    max_entries: 5             # 每源最多几条
+    feeds:
+      - name: "BBC中文"
+        url: "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml"
+        lang: "zh"
+      - name: "Solidot"
+        url: "https://www.solidot.org/index.rss"
+        lang: "zh"
+      - name: "TechCrunch"
+        url: "https://techcrunch.com/feed/"
+        lang: "en"
+      - name: "Ars Technica"
+        url: "https://feeds.arstechnica.com/arstechnica/index"
+        lang: "en"
+      - name: "InfoQ 中国"
+        url: "https://www.infoq.cn/feed"
+        lang: "zh"
+
+replay:
+  data_file: "data/sample/sample_news.jsonl"
+  rate_per_sec: 5              # 重放速率，模拟实时流

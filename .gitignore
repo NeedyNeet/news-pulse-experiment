@@ -1,0 +1,32 @@
+# ── 密钥与本地配置（务必不要提交）──
+.env
+config.local.ps1
+config/kraft/.server.runtime.properties
+
+# ── 运行产物 ──
+data/lake/
+data/cache/
+data/checkpoints/
+data/kafka/
+data/spark-tmp/
+data/sample/sample_news.jsonl
+news_pulse.db
+logs/
+
+# ── 大型二进制（按需保留）──
+# infra/kafka/ 约 100MB，若仓库有大小限制可取消下面注释
+# infra/kafka/
+# infra/hadoop/
+
+# ── Python ──
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
+
+# ── IDE ──
+.idea/
+.vscode/
+.claude/
