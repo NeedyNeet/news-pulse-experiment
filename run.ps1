@@ -226,7 +226,7 @@ switch ($Action.ToLower()) {
         # 检查是否已格式化
         if (-not (Test-Path $META_FILE)) {
             Write-Host "首次运行：格式化 KRaft 存储..." -ForegroundColor Yellow
-            $id = & $JAVA -cp $KCP kafka.tools.StorageTool random-uuid 2>$null
+            $id = & $JAVA @KLG -cp $KCP kafka.tools.StorageTool random-uuid 2>$null
             $id = ($id | Where-Object { $_ -match '^[A-Za-z0-9_-]{10,}$' } | Select-Object -Last 1).Trim()
             if (-not $id) { Write-Host "❌ 无法生成 cluster id" -ForegroundColor Red; exit 1 }
             Write-Host "   cluster id: $id"
